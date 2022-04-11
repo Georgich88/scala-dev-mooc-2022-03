@@ -14,6 +14,14 @@ object App {
 //
 //    println("Hello world")
 
-    println(type_system.v1.foo())
+    def doomy(a: String): Unit = {
+      Thread.sleep(1000)
+      println(a)
+    }
+
+    val r = hof.logRunningTime(doomy)
+
+    r("Hello")
+    //println(hof.logRunningTime(doomy()))
   }
 }

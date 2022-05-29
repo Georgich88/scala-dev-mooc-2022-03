@@ -92,6 +92,39 @@ object recursion {
    *
    */
 
+  def fib(n: Int): Int = {
+    if (n <= 1) n
+    else {
+      var fib = 0
+      var fibPrev1 = 1
+      var fibPrev2 = 0
+      var i = 2
+      while (i <= n) {
+        fib = fibPrev1 + fibPrev2
+        fibPrev2 = fibPrev1
+        fibPrev1 = fib
+        i += 1
+      }
+      fib
+    }
+  }
+
+  def fibRec(n: Int): Int = {
+    if (n <= 1) n
+    else if (n == 2) 1
+    else fibRec(n - 1) + fibRec(n - 2);
+  }
+
+  def fibTailRec(n: Int): Int = {
+    @tailrec
+    def loop(i: Int, fib: Int, fibPrev: Int): Int =
+      if (i >= n) fib
+      else loop(i + 1, fib + fibPrev, fib)
+
+    if (n <= 1) n
+    else if (n == 2) 1
+    else loop(2, 1, 1)
+  }
 
 }
 
@@ -104,7 +137,7 @@ object hof{
    case class Record(value: String)
 
    case class Request()
-   
+
    object Request {
        def parse(str: String): Request = ???
    }
@@ -135,7 +168,7 @@ object hof{
     // save(req)
   }
 
-  
+
 
   // обертки
 
@@ -158,11 +191,11 @@ object hof{
 
   def isOdd(i: Int): Boolean = i % 2 > 0
 
-  
-   
+
+
   def not[T](f: T => Boolean): T => Boolean = i => ! f(i)
-  
-  
+
+
   lazy val isEven = not(isOdd)
 
 
@@ -281,7 +314,7 @@ object hof{
     /**
       * Конструктор, позволяющий создать список из N - го числа аргументов
       * Для этого можно воспользоваться *
-      * 
+      *
       * Например вот этот метод принимает некую последовательность аргументов с типом Int и выводит их на печать
       * def printArgs(args: Int*) = args.foreach(println(_))
       */
